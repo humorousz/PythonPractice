@@ -1,7 +1,7 @@
 def multi(a,b):
 	return a*b
 
-print multi(8,8)
+print (multi(8,8))
 
 def testGrade(levle):
 	if(levle == 'A'):
@@ -17,11 +17,11 @@ def testGrade(levle):
 	else:
 		return "give a wrong level!"
 
-print testGrade('A')
-print testGrade('B')
-print testGrade('C')
-print testGrade('D')
-print testGrade('F')
+print (testGrade('A'))
+print (testGrade('B'))
+print (testGrade('C'))
+print (testGrade('D'))
+print (testGrade('F'))
 
 def testPrice(num):
 	count25 = int(num / 0.25);
@@ -30,4 +30,4 @@ def testPrice(num):
 	count1 = int((num - 0.25 * count25 - 0.1 * count10 - 0.05 * count5) / 0.01)
 	return count25,count10,count5,count1
 
-print testPrice(0.88)
+print (testPrice(0.88))
