@@ -1,9 +1,8 @@
 import os
-
 normal_symbol = '├── '
 end_symbol = '└── '
 file_filter_list = ['PathTree.py', 'cal.py']
-dir_filter_list = ['../filePath', 'Number']
+dir_filter_list = ['../filePath', '../Number']
 
 
 def get_symbol(file_list, index):
