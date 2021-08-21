@@ -2,8 +2,8 @@ import os
 
 normal_symbol = '├── '
 end_symbol = '└── '
-file_filter_list = ['PathTree.py','__init__.py']
-dir_filter_list = ['../filePath']
+file_filter_list = ['PathTree.py', 'cal.py']
+dir_filter_list = ['../filePath', 'Number']
 
 
 def get_symbol(file_list, index):
@@ -24,14 +24,19 @@ def dfs_show_dir(path, depth):
     if depth == 0:
         print("root:[" + path + "]")
     file_list = os.listdir(path)
+    # 先过滤不合法
+    for node in file_list[:]:
+        full_node = path + '/' + node
+        if not legal_file(full_node, node):
+            file_list.remove(node)
+    # 开始遍历
     for index, node in enumerate(file_list):
         full_node = path + '/' + node
-        if legal_file(full_node, node):
-            if os.path.isdir(full_node):
-                print("| " * depth + get_symbol(file_list, index) + node)
-                dfs_show_dir(full_node, depth + 1)
-            else:
-                print("| " * depth + get_symbol(file_list, index) + node)
+        if os.path.isdir(full_node):
+            print("| " * depth + normal_symbol + node)
+            dfs_show_dir(full_node, depth + 1)
+        else:
+            print("| " * depth + get_symbol(file_list, index) + node)
 
 
 if __name__ == '__main__':
