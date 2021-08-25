@@ -2,7 +2,7 @@ import os
 import os.path
 
 file_path = "/Users/zhangzhiquan/Github/PythonPractice/file.txt"
-root_path = "./ks-features/ft-live/live/src/main/java/com/yxcorp/gifshow/live"
+root_path = "ks-features/ft-live/live/src/main/java/com/yxcorp/gifshow/live"
 normal_symbol = '├── '
 end_symbol = '└── '
 
@@ -26,11 +26,11 @@ def get_symbol(file_list, index):
         return normal_symbol
 
 
-def legal_file(full_node, node, file_filters, dir_filters):
+def legal_file(full_node, file_filters, dir_filters):
     if os.path.isdir(full_node):
         return full_node in dir_filters
     else:
-        return node in file_filters
+        return full_node in file_filters
 
 
 def dfs_show_dir(path, depth, file_filters, dir_filters):
@@ -40,21 +40,21 @@ def dfs_show_dir(path, depth, file_filters, dir_filters):
     # 先过滤不合法
     for node in file_list[:]:
         full_node = path + '/' + node
-        if not legal_file(full_node, node, file_filters, dir_filters):
+        if not legal_file(full_node, file_filters, dir_filters):
             file_list.remove(node)
     # 开始遍历
     for index, node in enumerate(file_list):
         full_node = path + '/' + node
         if os.path.isdir(full_node):
             print("| " * depth + normal_symbol + node)
-            dfs_show_dir(full_node, depth + 1)
+            dfs_show_dir(full_node, depth + 1, file_filters, dir_filters)
         else:
             print("| " * depth + get_symbol(file_list, index) + node)
 
 
-# def test_filters(it):
-#     for name in it:
-#         print(name)
+def test_filters(it):
+    for name in it:
+        print(name)
 
 
 # def test_case():
