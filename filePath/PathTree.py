@@ -3,8 +3,8 @@ import os.path
 
 file_path = "/Users/zhangzhiquan/Github/PythonPractice/file.txt"
 root_path = "ks-features/ft-live/live/src/main/java/com/yxcorp/gifshow/live"
-normal_symbol = '├── '
-end_symbol = '└── '
+normal_symbol = '├──'
+end_symbol = '└──'
 
 
 # 获取过滤文件
@@ -52,10 +52,14 @@ def get_legal_file_list(path, file_filters, dir_filters):
 
 
 def print_node(file_list, full_node, node, index, depth):
+    count = depth - 1
+    while count >= 0:
+        print("│    ", end='')
+        count -= 1
     if os.path.isdir(full_node):
-        print("| " * depth + normal_symbol + node)
+        print(normal_symbol + node)
     else:
-        print("| " * depth + get_symbol(file_list, index) + node)
+        print(get_symbol(file_list, index) + node)
 
 
 def dfs_show_dir(path, depth, file_filters, dir_filters):
