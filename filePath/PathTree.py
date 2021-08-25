@@ -44,6 +44,7 @@ def dfs_show_dir(path, depth, file_filters, dir_filters):
         full_node = path + '/' + node
         if not legal_file(full_node, file_filters, dir_filters):
             file_list.remove(node)
+    file_list.sort()
     # 开始遍历
     for index, node in enumerate(file_list):
         full_node = path + '/' + node
