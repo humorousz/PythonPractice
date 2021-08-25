@@ -1,8 +1,10 @@
+# -*- coding: utf-8
 import os
 import os.path
+import sys
 
-# 获取过滤文件
-from filePath.config_tree import end_symbol, normal_symbol, file_path, root_path, work_dir
+normal_symbol = '├──'
+end_symbol = '└──'
 
 
 def get_filter_files(path):
@@ -72,18 +74,14 @@ def dfs_show_dir(path, depth, file_filters, dir_filters):
             dfs_show_dir(full_node, depth + 1, file_filters, dir_filters)
 
 
-def test_filters(it):
-    for name in it:
-        print(name)
-
-
-# def test_case():
-#     file_filter_list = get_filter_files(file_path)
-#     test_filters(file_filter_list)
-#     test_filters(get_filter_dirs(file_filter_list))
+def print_git_tree_node(work, file, root):
+    os.chdir(work)
+    file_filter_list = get_filter_files(file)
+    dfs_show_dir(root, 0, file_filter_list, get_filter_dirs(file_filter_list))
 
 
 if __name__ == '__main__':
-    os.chdir(work_dir)
-    file_filter_list = get_filter_files(file_path)
-    dfs_show_dir(root_path, 0, file_filter_list, get_filter_dirs(file_filter_list))
+    work_dir = sys.argv[1]
+    file_path = sys.argv[2]
+    root_path = sys.argv[3]
+    print_git_tree_node(work_dir, file_path, root_path)
