@@ -35,24 +35,33 @@ def legal_file(full_node, file_filters, dir_filters):
         return full_node in file_filters
 
 
-def dfs_show_dir(path, depth, file_filters, dir_filters):
-    if depth == 0:
-        print("root:[" + path + "]")
+def get_legal_file_list(path, file_filters, dir_filters):
     file_list = os.listdir(path)
-    # 先过滤不合法
     for node in file_list[:]:
         full_node = path + '/' + node
         if not legal_file(full_node, file_filters, dir_filters):
             file_list.remove(node)
+    return file_list
+
+
+def print_node(file_list, full_node, node, index, depth):
+    if os.path.isdir(full_node):
+        print("| " * depth + normal_symbol + node)
+    else:
+        print("| " * depth + get_symbol(file_list, index) + node)
+
+
+def dfs_show_dir(path, depth, file_filters, dir_filters):
+    if depth == 0:
+        print("root:[" + path + "]")
+    file_list = get_legal_file_list(path, file_filters, dir_filters)
     file_list.sort()
     # 开始遍历
     for index, node in enumerate(file_list):
         full_node = path + '/' + node
+        print_node(file_list, full_node, node, index, depth)
         if os.path.isdir(full_node):
-            print("| " * depth + normal_symbol + node)
             dfs_show_dir(full_node, depth + 1, file_filters, dir_filters)
-        else:
-            print("| " * depth + get_symbol(file_list, index) + node)
 
 
 def test_filters(it):
