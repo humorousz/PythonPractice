@@ -13,10 +13,12 @@ def get_filter_files(path):
 
 
 def get_filter_dirs(file_list):
-    dir_set = set()
+    dir_list = []
     for file_name in file_list:
-        dir_set.add(os.path.dirname(file_name))
-    return dir_set
+        full_path = os.path.dirname(file_name)
+        if full_path not in dir_list:
+            dir_list.append(full_path)
+    return dir_list
 
 
 def get_symbol(file_list, index):
