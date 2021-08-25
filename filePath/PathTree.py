@@ -2,24 +2,21 @@ import os
 import os.path
 
 file_path = "/Users/zhangzhiquan/Github/PythonPractice/file.txt"
-dir_path = "/Users/zhangzhiquan/Github/PythonPractice/dir.txt"
 root_path = "./ks-features/ft-live/live/src/main/java/com/yxcorp/gifshow/live"
 normal_symbol = '├── '
 end_symbol = '└── '
-file_filter_list = []
-dir_filter_list = []
 
 
-def get_file_list(file_path):
-    file = open(file_path)
-    return file.readlines()
+# 获取过滤文件
+def get_filter_files(path):
+    return open(path).readlines()
 
 
-def get_filter_files():
-    global file_filter_list
-    global dir_filter_list
-    file_filter_list = get_file_list(file_path)
-    dir_filter_list = get_file_list(dir_path)
+def get_filter_dirs(file_list):
+    dir_set = set()
+    for file_name in file_list:
+        dir_set.add(os.path.dirname(file_name))
+    return dir_set
 
 
 def get_symbol(file_list, index):
@@ -29,21 +26,21 @@ def get_symbol(file_list, index):
         return normal_symbol
 
 
-def legal_file(full_node, node):
+def legal_file(full_node, node, file_filters, dir_filters):
     if os.path.isdir(full_node):
-        return full_node in dir_filter_list
+        return full_node in dir_filters
     else:
-        return node in file_filter_list
+        return node in file_filters
 
 
-def dfs_show_dir(path, depth):
+def dfs_show_dir(path, depth, file_filters, dir_filters):
     if depth == 0:
         print("root:[" + path + "]")
     file_list = os.listdir(path)
     # 先过滤不合法
     for node in file_list[:]:
         full_node = path + '/' + node
-        if not legal_file(full_node, node):
+        if not legal_file(full_node, node, file_filters, dir_filters):
             file_list.remove(node)
     # 开始遍历
     for index, node in enumerate(file_list):
@@ -55,7 +52,18 @@ def dfs_show_dir(path, depth):
             print("| " * depth + get_symbol(file_list, index) + node)
 
 
+# def test_filters(it):
+#     for name in it:
+#         print(name)
+
+
+# def test_case():
+#     file_filter_list = get_filter_files(file_path)
+#     test_filters(file_filter_list)
+#     test_filters(get_filter_dirs(file_filter_list))
+
+
 if __name__ == '__main__':
     os.chdir('/Users/zhangzhiquan/KS/kwai-android')
-    get_filter_files()
-    dfs_show_dir(root_path, 0)
+    file_filter_list = get_filter_files(file_path)
+    dfs_show_dir(root_path, 0, file_filter_list, get_filter_dirs(file_filter_list))
