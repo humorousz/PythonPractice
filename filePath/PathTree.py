@@ -28,9 +28,16 @@ def get_symbol(file_list, index):
         return normal_symbol
 
 
+def is_legal_dir(full_node, dir_filters):
+    for dir_path in dir_filters:
+        if dir_path.find(full_node) != -1:
+            return True
+    return False
+
+
 def legal_file(full_node, file_filters, dir_filters):
     if os.path.isdir(full_node):
-        return full_node in dir_filters
+        return is_legal_dir(full_node, dir_filters)
     else:
         return full_node in file_filters
 
