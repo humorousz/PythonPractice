@@ -1,13 +1,10 @@
 import os
 import os.path
 
-file_path = "/Users/zhangzhiquan/Github/PythonPractice/file.txt"
-root_path = "ks-features/ft-live/live/src/main/java/com/yxcorp/gifshow/live"
-normal_symbol = '├──'
-end_symbol = '└──'
-
-
 # 获取过滤文件
+from filePath.config_tree import end_symbol, normal_symbol, file_path, root_path, work_dir
+
+
 def get_filter_files(path):
     return open(path).read().splitlines()
 
@@ -87,6 +84,6 @@ def test_filters(it):
 
 
 if __name__ == '__main__':
-    os.chdir('/Users/zhangzhiquan/KS/kwai-android')
+    os.chdir(work_dir)
     file_filter_list = get_filter_files(file_path)
     dfs_show_dir(root_path, 0, file_filter_list, get_filter_dirs(file_filter_list))
