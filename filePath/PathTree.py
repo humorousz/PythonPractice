@@ -9,7 +9,7 @@ end_symbol = '└── '
 
 # 获取过滤文件
 def get_filter_files(path):
-    return open(path).readlines()
+    return open(path).read().splitlines()
 
 
 def get_filter_dirs(file_list):
