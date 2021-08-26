@@ -4,13 +4,13 @@ import os
 import os.path
 import sys
 
-from filePath.config_tree import work_dir, file_path
+from filePath.config_tree import work_dir_config, file_path_config
 
 normal_symbol = '├──'
 end_symbol = '└──'
 
 
-def get_filter_files(path):
+def get_filter_files(work_dir, path):
     res_list = []
     for temp in open(path).read().splitlines():
         res_list.append(work_dir + "/" + temp)
@@ -80,11 +80,12 @@ def dfs_show_dir(path, depth, file_filters, dir_filters):
             dfs_show_dir(full_node, depth + 1, file_filters, dir_filters)
 
 
-def print_git_tree_node(work, file, root):
-    os.chdir(work)
-    file_filter_list = get_filter_files(file)
-    dfs_show_dir(root, 0, file_filter_list, get_filter_dirs(file_filter_list))
+def print_git_tree_node(work_dir, file):
+    root_path = "/Users/zhangzhiquan/KS/kwai-android"
+    os.chdir(work_dir)
+    file_filter_list = get_filter_files(root_path, file)
+    dfs_show_dir(work_dir, 0, file_filter_list, get_filter_dirs(file_filter_list))
 
 
 if __name__ == '__main__':
-    print_git_tree_node(work_dir, file_path, work_dir)
+    print_git_tree_node(work_dir_config, file_path_config)
