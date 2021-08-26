@@ -4,12 +4,17 @@ import os
 import os.path
 import sys
 
+from filePath.config_tree import work_dir, file_path
+
 normal_symbol = '├──'
 end_symbol = '└──'
 
 
 def get_filter_files(path):
-    return open(path).read().splitlines()
+    res_list = []
+    for temp in open(path).read().splitlines():
+        res_list.append(work_dir + "/" + temp)
+    return res_list
 
 
 def get_filter_dirs(file_list):
@@ -82,7 +87,4 @@ def print_git_tree_node(work, file, root):
 
 
 if __name__ == '__main__':
-    work_dir = sys.argv[1]
-    file_path = sys.argv[2]
-    root_path = sys.argv[3]
-    print_git_tree_node(work_dir, file_path, root_path)
+    print_git_tree_node(work_dir, file_path, work_dir)
