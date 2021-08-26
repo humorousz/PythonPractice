@@ -78,8 +78,7 @@ def dfs_show_dir(path, depth, file_filters, dir_filters):
             dfs_show_dir(full_node, depth + 1, file_filters, dir_filters)
 
 
-def print_git_tree_node(work_path, file):
-    root_path = os.getcwd()
+def print_git_tree_node(root_path, work_path, file):
     os.chdir(work_path)
     file_filter_list = get_filter_files(root_path, file)
     dfs_show_dir(work_path, 0, file_filter_list, get_filter_dirs(file_filter_list))
@@ -88,4 +87,5 @@ def print_git_tree_node(work_path, file):
 if __name__ == '__main__':
     work_dir = sys.argv[1]
     file_path = sys.argv[2]
-    print_git_tree_node(work_dir, file_path)
+    root_dir = os.getcwd()
+    print_git_tree_node(root_dir, work_dir, file_path)
