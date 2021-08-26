@@ -6,6 +6,7 @@ import sys
 
 normal_symbol = '├──'
 end_symbol = '└──'
+modify_count = 0
 
 
 def get_filter_files(root_path, path):
@@ -62,6 +63,8 @@ def print_node(file_list, full_node, node, index, depth):
     if os.path.isdir(full_node):
         print(normal_symbol + node)
     else:
+        global modify_count
+        modify_count += 1
         print(get_symbol(file_list, index) + node)
 
 
@@ -89,3 +92,4 @@ if __name__ == '__main__':
     file_path = sys.argv[2]
     root_dir = os.getcwd()
     print_git_tree_node(root_dir, work_dir, file_path)
+    print("total modify file count :" + str(modify_count))
