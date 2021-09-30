@@ -87,6 +87,17 @@ def print_git_tree_node(root_path, work_path, file):
     dfs_show_dir(work_path, 0, file_filter_list, get_filter_dirs(file_filter_list))
 
 
+# def testCase():
+#     # 业务目录
+#     work_dir = config_tree.WORK_DIR
+#     # diff文件
+#     file_path = config_tree.FILE_PATH
+#     # 根目录
+#     root_dir = config_tree.ROOT_DIR
+#     print_git_tree_node(root_dir, work_dir, file_path)
+#     print("total modify file count :" + str(modify_count))
+
+
 if __name__ == '__main__':
     work_dir = sys.argv[1]
     file_path = sys.argv[2]
